@@ -12,6 +12,7 @@ phases:
   build:
     commands:
       - echo Entering build phase
+      - chmod og-rwx ./sam-test/hello_world/requirements.txt
       - sam build -t ./sam-test/template.yaml -b ./.aws-sam/build --use-container --build-image amazon/aws-sam-cli-build-image-python3.7
       - sam package --template-file ./.aws-sam/build/template.yaml --s3-bucket=${ArtifactBucket} --output-template-file ./cfntemplate.json --use-json --debug
       - cat ./cfntemplate.json
