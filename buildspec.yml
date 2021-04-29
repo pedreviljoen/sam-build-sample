@@ -5,15 +5,14 @@ env:
 phases:
   install:
     runtime-versions:
-      python: 3.7
+      python: 3.8
     commands:
       - echo Entered the install phase...
       - pip install --user --upgrade awscli aws-sam-cli yq jq
   build:
     commands:
       - echo Entering build phase
-      - sam build -t ./sam-test/template.yaml -b ./.aws-sam/build
-      #- printf 'requests' > ./.aws-sam/build/requirements.txt
+      - sam build -t ./sam-test/template.yaml -b ./.aws-sam/build --use-container --build-image amazon/aws-sam-cli-build-image-python3.7
       - sam package --template-file ./.aws-sam/build/template.yaml --s3-bucket=${ArtifactBucket} --output-template-file ./cfntemplate.json --use-json --debug
       - cat ./cfntemplate.json
       - echo Completed
