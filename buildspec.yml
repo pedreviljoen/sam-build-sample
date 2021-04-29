@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Entering build phase
       - sam build -t ./sam-test/template.yaml -b ./.aws-sam/build
-      - printf 'requests' > ./.aws-sam/build/requirements.txt
+      #- printf 'requests' > ./.aws-sam/build/requirements.txt
       - sam package --template-file ./.aws-sam/build/template.yaml --s3-bucket=${ArtifactBucket} --output-template-file ./cfntemplate.json --use-json --debug
       - cat ./cfntemplate.json
       - echo Completed
